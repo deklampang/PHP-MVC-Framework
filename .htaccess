@@ -1,0 +1,23 @@
+
+# Configures the caching expiry date for browser caching of static files.
+<IfModule mod_expires.c>
+    <FilesMatch ".(jpg|jpeg|gif|png|mp3|flv|mov|avi|3pg|html|htm|swf)$">
+    ExpiresActive on
+    ExpiresDefault "access plus 1 year"
+    </FilesMatch>
+</IfModule>
+
+# Session Path
+php_value session.save_handler files
+php_value session.save_path tmp/sessions/
+php_value session.name @SSID
+php_value session.auto_start 0
+
+# Turn on mod_rewrite handling
+Options +FollowSymLinks
+IndexIgnore /MVC/
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php
+
